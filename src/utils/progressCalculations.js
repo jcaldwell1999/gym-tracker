@@ -22,3 +22,41 @@ export function getTopSet(sets) {
         }
     });
 }
+
+// Compare sessions function
+export function compareSessions(previousSets, currentSets) {
+    const previousVolume = calculateTotalVolume(previousSets);
+    const currentVolume = calculateTotalVolume(currentSets);
+
+    const previousTopSet = getTopSet(previousSets);
+    const currentTopSet = getTopSet(currentSets);
+
+    // Checks if volume increases
+    const volumeIncreased = currentVolume > previousVolume;
+
+    // Checks by how much the volume changed (shows plus or minus compared to last one)
+    const volumeChange = currentVolume - previousVolume;
+
+    // Checks if top set improves
+    const topSetImproved = 
+        currentTopSet.weight > previousTopSet.weight ||
+        (
+            currentTopSet.weight === previousTopSet.weight &&
+            currentTopSet.reps > previousTopSet.reps
+        );
+
+    // Old volume and new volume would just be previousVolume and currentVolume, so not need to declare consts?
+    // Same with previousTopSet and currentTopSet
+    
+    return {
+        previousVolume,
+        currentVolume,
+        volumeIncreased,
+        volumeChange,
+        previousTopSet,
+        currentTopSet,
+        topSetImproved
+
+    };
+
+}
