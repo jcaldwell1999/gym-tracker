@@ -3,9 +3,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { compareSessions } from './utils/progressCalculations';
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const previousSets = [
+    { weight: 100, reps: 8},
+    { weight: 100, reps: 7}
+  ];
+
+  const currentSets = [
+    { weight: 100, reps: 9},
+    { weight: 100, reps: 7}
+  ];
+
+  const comparison = compareSessions(previousSets, currentSets);
 
   return (
     <>
@@ -28,6 +41,16 @@ function App() {
         >
           Count is {count}
         </button>
+
+        <div>
+          <h2>Progess Comparison</h2>
+          <p>Previous volume: {comparison.previousVolume}</p>
+          <p>Current Volume: {comparison.currentVolume}</p>
+          <p>Volume Change: {comparison.volumeChange}</p>
+          <p>Volume Increased: {comparison.volumeIncreased ? "Yes" : "No"}</p>
+          <p>Top Set improved: {comparison.topSetImproved ? "Yes" : "No"}</p>
+        </div>
+
       </section>
 
       <div className="ticks"></div>

@@ -31,6 +31,19 @@ export function compareSessions(previousSets, currentSets) {
     const previousTopSet = getTopSet(previousSets);
     const currentTopSet = getTopSet(currentSets);
 
+    if (previousTopSet === null || currentTopSet === null) {
+        return {
+            previousVolume,
+            currentVolume,
+            volumeIncreased: currentVolume > previousVolume,
+            volumeChange: currentVolume - previousVolume,
+            previousTopSet,
+            currentTopSet,
+            topSetImproved: false,
+            message: "Not enough set data to compare top sets."
+        };
+    }
+
     // Checks if volume increases
     const volumeIncreased = currentVolume > previousVolume;
 
@@ -45,8 +58,6 @@ export function compareSessions(previousSets, currentSets) {
             currentTopSet.reps > previousTopSet.reps
         );
 
-    // Old volume and new volume would just be previousVolume and currentVolume, so not need to declare consts?
-    // Same with previousTopSet and currentTopSet
     
     return {
         previousVolume,
