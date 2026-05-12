@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import { compareSessions } from './utils/progressCalculations';
+import { compareSessions, getProgressMessage } from './utils/progressCalculations';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +19,8 @@ function App() {
   ];
 
   const comparison = compareSessions(previousSets, currentSets);
+
+  const progressMessage = getProgressMessage(comparison);
 
   return (
     <>
@@ -44,6 +46,9 @@ function App() {
 
         <div>
           <h2>Progess Comparison</h2>
+
+          <p><strong>{progressMessage}</strong></p>
+
           <p>Previous volume: {comparison.previousVolume}</p>
           <p>Current Volume: {comparison.currentVolume}</p>
           <p>Volume Change: {comparison.volumeChange}</p>

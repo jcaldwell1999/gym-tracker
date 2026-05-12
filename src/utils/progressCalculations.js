@@ -71,3 +71,19 @@ export function compareSessions(previousSets, currentSets) {
     };
 
 }
+
+export function getProgressMessage(comparison) {
+    if (comparison.volumeIncreased && comparison.topSetImproved) {
+        return "Volume increased and top set improved.";
+    }
+
+    if (comparison.VolumeIncreased && !comparison.topSetImproved) {
+        return "Volume improved, but top set did not improve.";
+    }
+
+    if (!comparison.volumeIncreased && comparison.topSetImproved) {
+        return "Top set improved, but total volume did not increase.";
+    }
+
+    return "No improvement in top set or volume compared to last session.";
+}
