@@ -87,3 +87,9 @@ export function getProgressMessage(comparison) {
 
     return "No improvement in top set or volume compared to last session.";
 }
+
+export function calculateTotalReps(sets) {
+    return sets.reduce((totalReps, currentSet) => {
+        return totalReps + currentSet.reps;
+    }, 0);
+}
