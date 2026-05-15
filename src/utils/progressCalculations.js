@@ -31,12 +31,22 @@ export function compareSessions(previousSets, currentSets) {
     const previousTopSet = getTopSet(previousSets);
     const currentTopSet = getTopSet(currentSets);
 
+    const previousTotalReps = calculateTotalReps(previousSets);
+    const currentTotalReps = calculateTotalReps(currentSets);
+
+    const repsIncreased = currentTotalReps > previousTotalReps;
+    const repsChange = currentTotalReps - previousTotalReps;
+
     if (previousTopSet === null || currentTopSet === null) {
         return {
             previousVolume,
             currentVolume,
             volumeIncreased: currentVolume > previousVolume,
             volumeChange: currentVolume - previousVolume,
+            previousTotalReps,
+            currentTotalReps,
+            repsIncreased,
+            repsChange,
             previousTopSet,
             currentTopSet,
             topSetImproved: false,
@@ -64,9 +74,13 @@ export function compareSessions(previousSets, currentSets) {
         currentVolume,
         volumeIncreased,
         volumeChange,
+        previousTotalReps,
+        currentTotalReps,
+        repsIncreased,
+        repsChange,
         previousTopSet,
         currentTopSet,
-        topSetImproved
+        topSetImproved,
 
     };
 
@@ -77,7 +91,7 @@ export function getProgressMessage(comparison) {
         return "Volume increased and top set improved.";
     }
 
-    if (comparison.VolumeIncreased && !comparison.topSetImproved) {
+    if (comparison.volumeIncreased && !comparison.topSetImproved) {
         return "Volume improved, but top set did not improve.";
     }
 

@@ -53,6 +53,11 @@ function App() {
           <p>Current Volume: {comparison.currentVolume}</p>
           <p>Volume Change: {comparison.volumeChange}</p>
           <p>Volume Increased: {comparison.volumeIncreased ? "Yes" : "No"}</p>
+
+          <p>Previous Total Reps: {comparison.previousTotalReps}</p>
+          <p>Current Total Reps: {comparison.currentTotalReps}</p>
+          <p>Rep Change: {comparison.repChange}</p>
+          <p>Reps Increased: {comparison.repsIncreased ? "Yes" : "No"}</p>
           <p>Top Set improved: {comparison.topSetImproved ? "Yes" : "No"}</p>
         </div>
 
