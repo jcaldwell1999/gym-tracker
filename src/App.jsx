@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
+  const [workoutName, setWorkoutName] = useState('');
   
   return (
     <main>
@@ -20,7 +21,16 @@ function App() {
 
       <section>
         <h2>Create Workout</h2>
-        <p>Workout template form will go here.</p>
+        
+        <input
+          type="text"
+          value={workoutName}
+          onChange={(event) => setWorkoutName(event.target.value)}
+          placeholder="Upper A"
+        />
+
+        <p>You typed: {workoutName}</p>
+
       </section>
 
       <section>
