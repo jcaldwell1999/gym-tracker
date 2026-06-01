@@ -3,6 +3,27 @@ import './App.css'
 
 function App() {
   const [workoutName, setWorkoutName] = useState('');
+  const [workouts, setWorkouts] = useState([]);
+
+  // Create workout function
+  function handleCreateWorkout() {
+    // Check if workout field is populated
+    if (workoutName.trim() === "") {
+      return;
+    }
+
+    // Create newWorkout object
+    const newWorkout = {
+      id: Date.now(),
+      name: workoutName,
+      exercises: []
+    };
+
+    // Add to workouts array
+    setWorkouts([...workouts, newWorkout]);
+    // Clear workoutName input
+    setWorkoutName('');
+  }
   
   return (
     <main>
@@ -29,13 +50,24 @@ function App() {
           placeholder="Upper A"
         />
 
+        <button onClick={handleCreateWorkout}>
+          Create Workout
+        </button>
+
         <p>You typed: {workoutName}</p>
 
       </section>
 
       <section>
         <h2>Saved Workouts</h2>
-        <p>No workouts created yet.</p>
+        {workouts.length === 0 ? (<p>No workouts created yet.</p> 
+        ) : (
+          <ul>
+            {workouts.map((workout) => (
+              <li key={workout.id}>{workout.name}</li>
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   );
