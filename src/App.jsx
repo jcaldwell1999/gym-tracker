@@ -1,9 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
   const [workoutName, setWorkoutName] = useState('');
-  const [workouts, setWorkouts] = useState([]);
+
+  const [workouts, setWorkouts] = useState(() => {
+    const saved = localStorage.getItem('workouts');
+
+    if (saved !== null) {
+      return JSON.parse(saved);
+    }
+    return [];
+  });
+
+
+
+  useEffect(() => {
+    localStorage.setItem('workouts', JSON.stringify(workouts));
+  }, [workouts]);
 
   // Create workout function
   function handleCreateWorkout() {
