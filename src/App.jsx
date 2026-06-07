@@ -4,6 +4,9 @@ import './App.css'
 function App() {
   const [workoutName, setWorkoutName] = useState('');
 
+  const [exerciseName, setExerciseName] = useState("");
+  const [defaultSets, setDefaultSets] = useState(3);
+
   const [workouts, setWorkouts] = useState(() => {
     const saved = localStorage.getItem('workouts');
 
