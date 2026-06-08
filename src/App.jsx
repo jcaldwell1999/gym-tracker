@@ -41,6 +41,27 @@ function App() {
     // Clear workoutName input
     setWorkoutName('');
   }
+
+  // Create exercise function
+  function handleCreateExercise(workoutId) {
+    // Check if workout field is population
+    if (exerciseName.trim() === "") {
+      return;
+    }
+
+    const workoutToUpdate = workouts.find((workout) => workout.id === workoutId);
+
+    const newExercise = {
+      id: Date.now(), //Temporary
+      name: exerciseName,
+      defaultSets: defaultSets,
+      position: 1
+    }
+
+    console.log("Adding exercise to workout:", workoutToUpdate.name);
+    console.log("Exercise:", exerciseName);
+    console.log("Default Sets", defaultSets);
+  }
   
   return (
     <main>
@@ -81,7 +102,28 @@ function App() {
         ) : (
           <ul>
             {workouts.map((workout) => (
-              <li key={workout.id}>{workout.name}</li>
+              <li key={workout.id}>
+                <h3>{workout.name}</h3>
+
+                <input
+                  type="text"
+                  value={exerciseName}
+                  onChange={(event) => setExerciseName(event.target.value)}
+                  placeholder="Exercise name"
+                />
+
+                <input
+                  type="number"
+                  value={defaultSets}
+                  onChange={(event) => setDefaultSets(Number(event.target.value))}
+                  min="1"
+                />
+
+                <button onClick={() => handleCreateExercise(workout.id)}>
+                  Add Exercise
+                </button>
+
+              </li>
             ))}
           </ul>
         )}
