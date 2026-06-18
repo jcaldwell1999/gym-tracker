@@ -58,6 +58,18 @@ function App() {
       position: 1
     }
 
+    const updatedWorkouts = workouts.map((workout) => {
+      if (workout.id === workoutId) {
+        const updateExercise = {...workout, exercises: [...workout.exercises, newExercise]};
+        return updateExercise;
+      } else {
+        return workout;
+      }
+    })
+
+    setWorkouts(updatedWorkouts);
+    setExerciseName('');
+
     console.log("Adding exercise to workout:", workoutToUpdate.name);
     console.log("Exercise:", exerciseName);
     console.log("Default Sets", defaultSets);
