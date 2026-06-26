@@ -22,6 +22,24 @@ function App() {
     localStorage.setItem('workouts', JSON.stringify(workouts));
   }, [workouts]);
 
+  // Remove Workout function
+  const handleRemoveWorkout = (removeId) => {
+    const newWorkouts = workouts.filter((workout) => workout.id !== removeId);
+    setWorkouts(newWorkouts);
+  }
+
+  // Remove exercise function
+  const handleRemoveExercise = (workoutId, removeId) => {
+    const newWorkouts = workouts.map((workout) => {
+      if (workout.id === workoutId) {
+        const updatedExercises = workout.exercises.filter((exercise) => exercise.id !== removeId);
+        return { ...workout, exercises: updatedExercises };
+      }
+      return workout;
+    });
+    setWorkouts(newWorkouts);
+  }
+  
   // Create workout function
   function handleCreateWorkout() {
     // Check if workout field is populated
@@ -49,8 +67,6 @@ function App() {
       return;
     }
 
-    const workoutToUpdate = workouts.find((workout) => workout.id === workoutId);
-
     const newExercise = {
       id: Date.now(), //Temporary
       name: exerciseName,
@@ -70,9 +86,6 @@ function App() {
     setWorkouts(updatedWorkouts);
     setExerciseName('');
 
-    console.log("Adding exercise to workout:", workoutToUpdate.name);
-    console.log("Exercise:", exerciseName);
-    console.log("Default Sets", defaultSets);
   }
   
   return (
@@ -122,6 +135,7 @@ function App() {
                   value={exerciseName}
                   onChange={(event) => setExerciseName(event.target.value)}
                   placeholder="Exercise name"
+                  style={{ maxWidth: '200px'}}
                 />
 
                 <input
@@ -129,11 +143,29 @@ function App() {
                   value={defaultSets}
                   onChange={(event) => setDefaultSets(Number(event.target.value))}
                   min="1"
+                  style={{ maxWidth: '48px'}}
                 />
 
                 <button onClick={() => handleCreateExercise(workout.id)}>
                   Add Exercise
                 </button>
+
+                <button onClick={() => handleRemoveWorkout(workout.id)}>
+                  Remove Workout
+                </button>
+
+                <ul>
+                  {workout.exercises.map((exercise) => (
+                    <li key={exercise.id}>
+                      <h3>{exercise.name}</h3>
+                      <h3>{exercise.defaultSets}</h3>
+
+                      <button onClick={() => handleRemoveExercise(workout.id, exercise.id)}>
+                        Remove Exercise
+                      </button>
+                    </li>
+                  ))}
+                </ul>
 
               </li>
             ))}
