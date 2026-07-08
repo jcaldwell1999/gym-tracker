@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import WorkoutItem from './components/WorkoutItem.jsx'
 
 function App() {
   const [workoutName, setWorkoutName] = useState('');
