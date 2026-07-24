@@ -5,6 +5,13 @@ export default function WorkoutItem({ workout, onAddExercise, onRemoveExercise, 
     const [exerciseName, setExerciseName] = useState("");
     const [defaultSets, setDefaultSets] = useState(3);
 
+    // Function to clear exercise field
+    const handleAddExercise = () => {
+        onAddExercise(workout.id, exerciseName, defaultSets);
+        setExerciseName('');
+        setDefaultSets(3);
+    }
+
     return (
     <li key={workout.id}>
         <h3>{workout.name}</h3>
@@ -25,7 +32,7 @@ export default function WorkoutItem({ workout, onAddExercise, onRemoveExercise, 
             style={{ maxWidth: '48px'}}
         />
 
-        <button onClick={() => onAddExercise(workout.id)}>
+        <button onClick={handleAddExercise}>
             Add Exercise
         </button>
 
